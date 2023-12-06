@@ -1,0 +1,10 @@
+{
+  "name": "spaces-dapp",
+  "version": "1.0.0",
+  "description": "Clixpesa Spaces (Save with friends and family)",
+  "main": "index.js",
+  "repository": "https://github.com/clixpesa/build-for-minipay.git",
+  "author": "Kachi <kachdekan@gmail.com>",
+  "license": "Apache v2.0",
+  "private": true
+}

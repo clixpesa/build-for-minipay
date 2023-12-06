@@ -1,0 +1,10 @@
+{
+  "name": "loans-dapp",
+  "version": "1.0.0",
+  "description": "Clixpesa P2P Lending (Lend each other money at your own terms)",
+  "main": "index.js",
+  "repository": "https://github.com/clixpesa/build-for-minipay.git",
+  "author": "Kachi <kachdekan@gmail.com>",
+  "license": "Apache v2.0",
+  "private": true
+}

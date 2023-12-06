@@ -1,0 +1,18 @@
+{
+  "name": "build-for-minipay",
+  "version": "1.0.0",
+  "description": "Clixpesa dApps on MiniPay",
+  "main": "index.js",
+  "repository": "https://github.com/clixpesa/build-for-minipay.git",
+  "author": "Kachi <kachdekan@gmail.com>",
+  "license": "Apache v2.0",
+  "workspaces":{
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      
+    ]
+  },
+  "private": true
+}
