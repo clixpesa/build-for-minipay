@@ -1,6 +1,7 @@
 import { Box, Text, HStack, Button} from 'native-base';
 import { ethers } from 'ethers';
 import { useState } from 'react';
+import { blockscoutKey } from '../config/appconfig';
 
 export default function DummyScreen() {
   const [balance, setBalance] = useState(0);
@@ -20,8 +21,15 @@ export default function DummyScreen() {
     setAddress(account);
   };
 
+  const setSigner = async () => {
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
+    console.log(address);
+    console.log(blockscoutKey);
+  };
+
   const showBalance = async () => {
-    const contractAddress = '0x765DE816845861e75A25fCA122bb6898B8B1282a'//'0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1';
+    const contractAddress = '0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1';
     const contractABI = [
       'function balanceOf(address account) external view returns (uint256)'
     ];
@@ -36,7 +44,8 @@ export default function DummyScreen() {
       <Text>Bal: {balance} cUSD</Text>
       <HStack space={2}>
         <Button onPress={() => connect()}>Connect</Button>
-        <Button onPress={() => showBalance()}>Show Bal</Button> 
+        <Button onPress={() => showBalance()}>Show Bal</Button>
+        <Button onPress={() => setSigner()}>Set Signer</Button> 
       </HStack>
     </Box>
   );

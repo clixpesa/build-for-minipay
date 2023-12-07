@@ -11,7 +11,7 @@
       "packages/*"
     ],
     "nohoist": [
-      
+      "**/@expo/vector-icons"
     ]
   },
   "private": true
