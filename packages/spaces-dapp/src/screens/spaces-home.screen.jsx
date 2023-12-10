@@ -9,7 +9,7 @@ import { spaces as spacesData } from '../utils/data';
 export default function SpacesHomeScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [totalBalance, setTotalBalance] = useState(0);
-  const [spaces, setSpaces] = useState(spacesData);
+  const [spaces, setSpaces] = useState([]);
 
 
   const onRefresh = () => {

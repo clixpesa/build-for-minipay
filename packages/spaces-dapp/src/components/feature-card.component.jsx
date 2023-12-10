@@ -13,7 +13,7 @@ const FeatureCard = ({ color, bg, actions, itemBottom, apprxBalance, balance }) 
           <Text _light={{ color }}>Total Balance (USD)</Text>
           <HStack alignItems="center">
             <Heading size="xl" letterSpacing="0.5" _light={{ color }}>
-              {wholePart + '.'}
+              $ {wholePart + '.'}
             </Heading>
             <Heading size="lg" letterSpacing="0.5" mt={1} _light={{ color }}>
               {decimalPart}
