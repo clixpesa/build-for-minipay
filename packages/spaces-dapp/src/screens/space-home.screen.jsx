@@ -18,7 +18,7 @@ import { FeatureCard, SpacesFeatureItem } from '../components';
 import { SpaceTabsNavigator } from '../navigation/spaces-tabs.nav';
 import { spaces as spaceData } from '../utils/data';
 
-export default function SpaceHomeScreen() {
+export default function SpaceHomeScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [totalBalance, setTotalBalance] = useState(0);
   const [loans, setLoans] = useState([]);
@@ -106,6 +106,7 @@ export default function SpaceHomeScreen() {
             ) : null}
             <Actionsheet.Item
               onPress={() => {
+                navigation.navigate('createSpace');
                 onClose();
               }}
             >
