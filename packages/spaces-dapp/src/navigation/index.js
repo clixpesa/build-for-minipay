@@ -3,7 +3,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-import { DummyScreen, SpacesLandingScreen, SpaceHomeScreen, CreateSpaceScreen } from '../screens';
+import {
+  DummyScreen,
+  SpacesLandingScreen,
+  SpaceHomeScreen,
+  CreateSpaceScreen,
+  SelectContactsScreen,
+} from '../screens';
 
 export const Navigation = () => {
   /*const config = {
@@ -21,13 +27,14 @@ const linking = {
   return (
     <NavigationContainer fallback={<Text>Loading...</Text>}>
       <Stack.Navigator
-        initialRouteName={hasSpaces ? 'spaceHome' : 'createSpace'}
+        initialRouteName={hasSpaces ? 'spaceHome' : 'selectContacts'}
         screenOptions={{
           headerShown: false,
         }}
       >
         <Stack.Screen name="dummyScreen" component={DummyScreen} />
         <Stack.Screen name="createSpace" component={CreateSpaceScreen} />
+        <Stack.Screen name="selectContacts" component={SelectContactsScreen} />
         <Stack.Screen name="spacesLanding" component={SpacesLandingScreen} />
         <Stack.Screen name="spaceHome" component={SpaceHomeScreen} />
       </Stack.Navigator>
