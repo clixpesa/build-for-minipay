@@ -3,10 +3,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-import { DummyScreen,SpacesLandingScreen, SpacesHomeScreen } from '../screens';
+import { DummyScreen, SpacesLandingScreen, SpaceHomeScreen } from '../screens';
 
 export const Navigation = () => {
-/*const config = {
+  /*const config = {
   screens: {
     spacesHome: 'home',
     dummyScreen: 'dummy',
@@ -17,18 +17,19 @@ const linking = {
   prefixes: ['http://localhost:19006/', 'localhost://'],
   config,
 };linking={linking} fallback={<Text>Loading...</Text>}*/
+  const hasSpaces = true;
   return (
-    <NavigationContainer >
+    <NavigationContainer fallback={<Text>Loading...</Text>}>
       <Stack.Navigator
-      initialRouteName="spacesLanding"
+        initialRouteName={hasSpaces ? 'spaceHome' : 'spacesLanding'}
         screenOptions={{
-        //headerShown: false,
-      }}
+          headerShown: false,
+        }}
       >
         <Stack.Screen name="dummyScreen" component={DummyScreen} />
         <Stack.Screen name="spacesLanding" component={SpacesLandingScreen} />
-        <Stack.Screen name="spacesHome" component={SpacesHomeScreen} />
+        <Stack.Screen name="spaceHome" component={SpaceHomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};

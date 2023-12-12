@@ -1,10 +1,10 @@
 import { Box, Text, HStack, VStack, Pressable, Avatar } from 'native-base';
-import { useNavigation } from '@react-navigation/native';
+//import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 //import { setThisRosca } from '@dapp/store/spaces/spaces.slice';
 
 const SpacesFeatureItem = (props) => {
-  const navigation = useNavigation();
+  ///const navigation = useNavigation();
   //const dispatch = useDispatch();
   const title = props.itemTitle.split(' ');
   const initials =
@@ -24,10 +24,10 @@ const SpacesFeatureItem = (props) => {
     <Pressable
       onPress={() => {
         //dispatch(setThisRosca(props.itemParams));
-        navigation.navigate(props.screen, props.itemParams ? props.itemParams : {});
+        props.navigation.navigate(props.screen, props.itemParams ? props.itemParams : {});
       }}
     >
-      <HStack space={3} my={2} mx={3} alignItems="center">
+      <HStack space={3} my={2} alignItems="center">
         <Avatar
           bg={avatarBg[props.type]}
           //_text={{ color: props.initiated ? 'primary.600' : 'primary.100' }}
@@ -43,7 +43,7 @@ const SpacesFeatureItem = (props) => {
               {props.type == 'rosca' ? 'Round Due: ' + props.dueDate : 'Due: ' + props.dueDate}
             </Text>
           </VStack>
-          <VStack mr={2} maxW="3/5">
+          <VStack mr={2} maxW="3/5" ml={14}>
             <Text fontWeight="semibold" color="blueGray.800" textAlign="right">
               {props.value}
             </Text>

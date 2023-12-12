@@ -1,4 +1,4 @@
-//export { default as TransactionItem } from './transaction.component';
+export { default as TransactionItem } from './transaction.component';
 export { default as SectionHeader } from './section-header.component';
 export { default as FeatureCard } from './feature-card.component';
 export { default as SpacesFeatureItem } from './spaces-feature-item.component';
