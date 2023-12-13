@@ -23,7 +23,7 @@ export default function CreateSpaceScreen({ navigation }) {
   const suggestions = ['Savings', 'Vacation', 'Chama', 'Gift', 'Sherehe', 'Emergency', 'Masomo'];
   //const dispatch = useDispatch();
   const [spaceName, setSpaceName] = useState('');
-  const [spaceType, setSpaceType] = useState('');
+  const [memberCount, setMemberCount] = useState('');
 
   return (
     <Box flex={1} bg="muted.100">
@@ -71,12 +71,25 @@ export default function CreateSpaceScreen({ navigation }) {
               );
             })}
           </HStack>
+          <Stack mt={2}>
+            <FormControl.Label>How many members?</FormControl.Label>
+            <Input
+              bg="white"
+              p={3}
+              placeholder="atleast 2"
+              rounded="2xl"
+              size="lg"
+              value={memberCount}
+              onChangeText={(text) => setMemberCount(text)}
+              keyboardType="numeric"
+            />
+          </Stack>
         </Stack>
 
-        <Stack alignItems="center" width="95%" mt="70%">
+        <Stack alignItems="center" width="95%" mt="50%">
           <Button
             rounded="3xl"
-            disabled={spaceType ? false : true}
+            disabled={memberCount ? false : true}
             w="60%"
             _text={{ color: 'primary.100', fontWeight: 'semibold', mb: '0.5' }}
             onPress={() => {

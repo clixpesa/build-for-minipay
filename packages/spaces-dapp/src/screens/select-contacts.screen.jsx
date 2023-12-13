@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, HStack, Text, Avatar, VStack, FlatList, Button } from 'native-base';
 import { useDispatch } from 'react-redux';
-import * as Contacts from 'expo-contacts';
+//import * as Contacts from 'expo-contacts';
 import { TouchableOpacity } from 'react-native';
 //import { setSelectedMembers } from '@dapp/store/spaces/spaces.slice';
 
@@ -25,7 +25,7 @@ export default function SelectContactsScreen({ navigation }) {
         } else {
           console.log('No Contacts');
         }
-      }
+      } 
     })();
   }, []);
 

@@ -9,6 +9,9 @@ import {
   SpaceHomeScreen,
   CreateSpaceScreen,
   SelectContactsScreen,
+  SetSpaceGoalScreen,
+  JoinSpaceScreen,
+  FundSpaceScreen,
 } from '../screens';
 
 export const Navigation = () => {
@@ -27,7 +30,7 @@ const linking = {
   return (
     <NavigationContainer fallback={<Text>Loading...</Text>}>
       <Stack.Navigator
-        initialRouteName={hasSpaces ? 'spaceHome' : 'selectContacts'}
+        initialRouteName={hasSpaces ? 'spaceHome' : 'fundSpace'}
         screenOptions={{
           headerShown: false,
         }}
@@ -35,7 +38,10 @@ const linking = {
         <Stack.Screen name="dummyScreen" component={DummyScreen} />
         <Stack.Screen name="createSpace" component={CreateSpaceScreen} />
         <Stack.Screen name="selectContacts" component={SelectContactsScreen} />
+        <Stack.Screen name="setSpaceGoal" component={SetSpaceGoalScreen} />
         <Stack.Screen name="spacesLanding" component={SpacesLandingScreen} />
+        <Stack.Screen name="joinSpace" component={JoinSpaceScreen} />
+        <Stack.Screen name="fundSpace" component={FundSpaceScreen} />
         <Stack.Screen name="spaceHome" component={SpaceHomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>

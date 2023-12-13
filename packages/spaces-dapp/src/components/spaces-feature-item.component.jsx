@@ -1,11 +1,11 @@
 import { Box, Text, HStack, VStack, Pressable, Avatar } from 'native-base';
-//import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-//import { setThisRosca } from '@dapp/store/spaces/spaces.slice';
+//import { setThisRosca } from '../store/spaces/spaces.slice';
 
 const SpacesFeatureItem = (props) => {
-  ///const navigation = useNavigation();
-  //const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
   const title = props.itemTitle.split(' ');
   const initials =
     title.length > 1
