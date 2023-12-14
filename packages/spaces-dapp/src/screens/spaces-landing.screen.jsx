@@ -1,7 +1,7 @@
 import { Box, Text, Heading, HStack, Stack, VStack, Icon, Avatar, Pressable } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function SpacesLandingScreen() {
+export default function SpacesLandingScreen({ navigation }) {
   return (
     <Box flex={1} bg="muted.100" alignItems="center">
       <Box bg="white" padding={4} width="full">
@@ -22,7 +22,7 @@ export default function SpacesLandingScreen() {
           padding={4}
           rounded="2xl"
           shadow="1"
-          onPress={() => console.log('Create a Space')}
+          onPress={() => navigation.navigate('createSpace')}
         >
           <HStack space={2} alignItems="center">
             <Avatar bg="primary.200">
@@ -42,7 +42,7 @@ export default function SpacesLandingScreen() {
           padding={4}
           rounded="2xl"
           shadow="1"
-          onPress={() => console.log('Join a Space')}
+          onPress={() => navigation.navigate('joinSpace')}
         >
           <HStack space={2} alignItems="center">
             <Avatar bg="primary.200">

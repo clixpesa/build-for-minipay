@@ -12,25 +12,35 @@ import {
   SetSpaceGoalScreen,
   JoinSpaceScreen,
   FundSpaceScreen,
+  ManageSpaceScreen,
 } from '../screens';
 
-export const Navigation = () => {
-  /*const config = {
-  screens: {
-    spacesHome: 'home',
-    dummyScreen: 'dummy',
-  },
-};
+import { useSelector } from 'react-redux';
 
-const linking = {
-  prefixes: ['http://localhost:19006/', 'localhost://'],
-  config,
-};linking={linking} fallback={<Text>Loading...</Text>}*/
-  const hasSpaces = false;
+export const Navigation = () => {
+  const config = {
+    screens: {
+      spaceHome: 'home',
+      spacesLanding: 'get-started',
+      createSpace: 'create',
+      joinSpace: 'join',
+      selectContacts: 'select-contacts',
+      setSpaceGoal: 'set-goal',
+      fundSpace: 'fund',
+      manageSpace: 'manage',
+      dummyScreen: 'dummy',
+    },
+  };
+
+  const linking = {
+    prefixes: ['http://localhost:19006/', 'localhost://'],
+    config,
+  };
+  const hasSpaces = true; //useSelector((s) => s.spaces.userSpaces.hasSpaces);
   return (
-    <NavigationContainer fallback={<Text>Loading...</Text>}>
+    <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
       <Stack.Navigator
-        initialRouteName={hasSpaces ? 'spaceHome' : 'fundSpace'}
+        initialRouteName={hasSpaces ? 'spaceHome' : 'spacesLanding'}
         screenOptions={{
           headerShown: false,
         }}
@@ -42,6 +52,7 @@ const linking = {
         <Stack.Screen name="spacesLanding" component={SpacesLandingScreen} />
         <Stack.Screen name="joinSpace" component={JoinSpaceScreen} />
         <Stack.Screen name="fundSpace" component={FundSpaceScreen} />
+        <Stack.Screen name="manageSpace" component={ManageSpaceScreen} />
         <Stack.Screen name="spaceHome" component={SpaceHomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>

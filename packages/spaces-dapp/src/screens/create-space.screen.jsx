@@ -16,14 +16,14 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-//import { setSpaceInfo } from '@dapp/store/spaces/spaces.slice';
+import { setSpaceInfo } from '../store/spaces/spaces.slice';
 
 export default function CreateSpaceScreen({ navigation }) {
-  const thisAddress = ''; //useSelector((state) => state.wallet.walletInfo.address);
+  const thisAddress = '0x05EE013C55cB4c5f193Df715554572aDD56d143e'; //useSelector((state) => state.wallet.walletInfo.address);
   const suggestions = ['Savings', 'Vacation', 'Chama', 'Gift', 'Sherehe', 'Emergency', 'Masomo'];
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [spaceName, setSpaceName] = useState('');
-  const [memberCount, setMemberCount] = useState('');
+  const [membersCount, setMembersCount] = useState('');
 
   return (
     <Box flex={1} bg="muted.100">
@@ -79,8 +79,8 @@ export default function CreateSpaceScreen({ navigation }) {
               placeholder="atleast 2"
               rounded="2xl"
               size="lg"
-              value={memberCount}
-              onChangeText={(text) => setMemberCount(text)}
+              value={membersCount}
+              onChangeText={(text) => setMembersCount(text)}
               keyboardType="numeric"
             />
           </Stack>
@@ -89,12 +89,12 @@ export default function CreateSpaceScreen({ navigation }) {
         <Stack alignItems="center" width="95%" mt="50%">
           <Button
             rounded="3xl"
-            disabled={memberCount ? false : true}
+            disabled={membersCount ? false : true}
             w="60%"
             _text={{ color: 'primary.100', fontWeight: 'semibold', mb: '0.5' }}
             onPress={() => {
-              //dispatch(setSpaceInfo({ spaceName, spaceType, thisAddress, defaultImg }));
-              navigation.navigate('selectContacts');
+              dispatch(setSpaceInfo({ spaceName, thisAddress, membersCount }));
+              navigation.navigate('setSpaceGoal');
             }}
           >
             Continue

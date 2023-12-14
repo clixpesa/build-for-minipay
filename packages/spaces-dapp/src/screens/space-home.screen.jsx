@@ -75,7 +75,10 @@ export default function SpaceHomeScreen({ navigation }) {
                   px="16"
                   mt={2}
                   _text={{ color: 'primary.700', fontWeight: 'semibold', mb: '0.5' }}
-                  onPress={() => console.log('comming soon')}
+                  onPress={() => {
+                    onClose();
+                    navigation.navigate('manageSpace');
+                  }}
                 >
                   Manage Space
                 </Button>
@@ -91,7 +94,7 @@ export default function SpaceHomeScreen({ navigation }) {
                   <Text fontSize="md">Your other spaces</Text>
                   {spaces.slice(1, 2).map((item, index) => (
                     <SpacesFeatureItem
-                      navigaton={navigation}
+                      navigation={navigation}
                       key={index}
                       itemTitle={item.name}
                       dueDate={item.dueDate}
@@ -106,8 +109,8 @@ export default function SpaceHomeScreen({ navigation }) {
             ) : null}
             <Actionsheet.Item
               onPress={() => {
-                navigation.navigate('createSpace');
                 onClose();
+                navigation.navigate('createSpace');
               }}
             >
               <HStack space={3} alignItems="center">
@@ -118,6 +121,7 @@ export default function SpaceHomeScreen({ navigation }) {
             <Actionsheet.Item
               onPress={() => {
                 onClose();
+                navigation.navigate('joinSpace');
               }}
             >
               <HStack space={3} alignItems="center" ml={1}>

@@ -28,9 +28,13 @@ export function SpaceTabsNavigator() {
         },
       }}
     >
-      <Tab.Screen name="Current Pot" component={CurrentPotView} />
-      <Tab.Screen name="Loans" component={LoansInfoView} />
-      <Tab.Screen name="Activity" component={ActivitiesView} />
+      <Tab.Screen name="pot" component={CurrentPotView} options={{ tabBarLabel: 'Current Pot' }} />
+      <Tab.Screen name="loans" component={LoansInfoView} options={{ tabBarLabel: 'Loans' }} />
+      <Tab.Screen
+        name="activity"
+        component={ActivitiesView}
+        options={{ tabBarLabel: 'Activity' }}
+      />
     </Tab.Navigator>
   );
 }

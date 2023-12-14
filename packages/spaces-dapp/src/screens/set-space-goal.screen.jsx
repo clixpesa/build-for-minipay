@@ -20,9 +20,11 @@ import {
   setDisbSchedule,
   setGoalAmount,
   setUserSpaces,
+  setHasSpaces,
 } from '../store/spaces/spaces.slice';
 
 import { ScheduleActSheet, SuccessModal } from '../components';
+import { generateId } from '../utils';
 
 export default function SetSpaceGoalScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -41,7 +43,19 @@ export default function SetSpaceGoalScreen({ navigation }) {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const memberCount = 5;
+  useEffect(() => {
+    setAuthCode(generateId());
+  }, []);
+
+  const createRosca = async () => {
+    setTimeout(() => {
+      setIsLoading(true);
+    }, 2000);
+    setIsSuccess(true);
+    onOpen1();
+    dispatch(setHasSpaces(true));
+    setIsLoading(false);
+  };
 
   return (
     <Box flex={1} bg="muted.100" alignItems="center">
@@ -76,8 +90,8 @@ export default function SetSpaceGoalScreen({ navigation }) {
             </HStack>
             <Text px={5} mb={3}>
               Each member contributes:{' '}
-              {spaceInfo.memberCount > 0
-                ? (amount / spaceInfo.memberCount).toFixed(2).toString()
+              {spaceInfo.membersCount > 0
+                ? (amount / spaceInfo.membersCount).toFixed(2).toString()
                 : '0'}{' '}
               cUSD
             </Text>
@@ -129,7 +143,7 @@ export default function SetSpaceGoalScreen({ navigation }) {
           </HStack>
           <Stack py={3} px={4}>
             <Text fontSize="md">
-              Members: You + {spaceInfo.memberCount ? spaceInfo.memberCount - 1 : '0'} others
+              Members: You + {spaceInfo.membersCount ? spaceInfo.membersCount - 1 : '0'} others
             </Text>
           </Stack>
         </Stack>
@@ -150,7 +164,7 @@ export default function SetSpaceGoalScreen({ navigation }) {
               ? `Rosca created successfully! \nInvite Code: ${authCode}`
               : `Rosca creation Failed! \n${errorMessage}`
           }
-          screen="Spaces"
+          screen="spaceHome"
           scrnOptions={{ isSuccess }}
         />
         <Spacer />
@@ -162,8 +176,8 @@ export default function SetSpaceGoalScreen({ navigation }) {
             w="60%"
             _text={{ color: 'text.50', fontWeight: 'semibold', mb: '0.5' }}
             onPress={() => {
-              //createRosca();
-              dispatch(setUserSpaces(userAddress));
+              createRosca();
+              //dispatch(setUserSpaces(userAddress));
             }}
           >
             Continue

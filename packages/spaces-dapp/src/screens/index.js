@@ -7,3 +7,4 @@ export { default as JoinSpaceScreen } from './join-space.screen';
 export { default as SpacesHomeScreen } from './spaces-home.screen';
 export { default as SpaceHomeScreen } from './space-home.screen';
 export { default as FundSpaceScreen } from './fund-space.screen';
+export { default as ManageSpaceScreen } from './manage-space.screen';

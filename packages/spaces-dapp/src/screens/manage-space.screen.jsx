@@ -1,10 +1,10 @@
 import { Box, Text } from 'native-base';
 
-export default function JoinSpaceScreen() {
+export default function ManageSpaceScreen() {
   return (
     <Box flex={1} bg="muted.100" alignItems="center" justifyContent="center">
       <Text>Coming Soon!</Text>
-      <Text>Join a Space</Text>
+      <Text>Manage your Space</Text>
     </Box>
   );
 }

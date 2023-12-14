@@ -20,7 +20,7 @@ const ScheduleActSheet = (props) => {
           <Button
             variant="subtle"
             rounded="3xl"
-            w="25%"
+            w="35%"
             _text={{ color: 'primary.600', fontWeight: 'semibold', mb: '0.5' }}
             onPress={() => props.setSchedule({ day: 'every', occurrence: 'Daily' })}
           >
@@ -29,7 +29,7 @@ const ScheduleActSheet = (props) => {
           <Button
             variant="subtle"
             rounded="3xl"
-            w="25%"
+            w="35%"
             _text={{ color: 'primary.600', fontWeight: 'semibold', mb: '0.5' }}
             onPress={() => props.setSchedule({ day: props.schedule.day, occurrence: 'Weekly' })}
           >
@@ -38,7 +38,7 @@ const ScheduleActSheet = (props) => {
           <Button
             variant="subtle"
             rounded="3xl"
-            w="25%"
+            w="35%"
             _text={{ color: 'primary.600', fontWeight: 'semibold', mb: '0.5' }}
             onPress={() => props.setSchedule({ day: props.schedule.day, occurrence: 'Monthly' })}
           >

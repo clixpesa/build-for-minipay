@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 //import { setThisRosca } from '../store/spaces/spaces.slice';
 
 const SpacesFeatureItem = (props) => {
-  const navigation = useNavigation();
+  //const navigation = useNavigation();
   const dispatch = useDispatch();
   const title = props.itemTitle.split(' ');
   const initials =

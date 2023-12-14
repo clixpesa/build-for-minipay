@@ -1,12 +1,33 @@
-import { Box, Text, HStack, VStack, Spacer, Progress, Button, Icon } from 'native-base';
+import {
+  Box,
+  Text,
+  HStack,
+  VStack,
+  Spacer,
+  Progress,
+  Button,
+  Icon,
+  Actionsheet,
+  useDisclose,
+  Input,
+  Stack,
+} from 'native-base';
 import { useState } from 'react';
-import { SectionHeader, TransactionItem } from '../components';
+import { SectionHeader, TransactionItem, SuccessModal } from '../components';
 import { Octicons } from '@expo/vector-icons';
 
 import { transactions } from '../utils/data';
 
 export default function CurrentPotView() {
+  const { isOpen, onOpen, onClose } = useDisclose();
+  const { isOpen: isOpen1, onOpen: onOpen1, onClose: onClose1 } = useDisclose();
   const [txs, setTxs] = useState([]); // [
+  const thisAddress = '0x'; //useSelector((s) => s.wallet.walletInfo.address);
+  const [amount, setAmount] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [balance, setBalance] = useState(0);
   const rosca = {
     goalAmount: 1000,
     roscaBal: 500,
@@ -14,6 +35,17 @@ export default function CurrentPotView() {
     dueDate: '2021-10-10',
   };
   const prog = (rosca.roscaBal / rosca.goalAmount) * 100;
+
+  const handleFundSpace = async () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      onClose();
+      setIsSuccess(true);
+      onOpen1();
+    }, 2000);
+  };
+
   return (
     <Box flex={1} alignItems="center">
       <Box width="85%" my={3}>
@@ -87,6 +119,17 @@ export default function CurrentPotView() {
           </Box>
         ))
       )}
+      <SuccessModal
+        isOpen={isOpen1}
+        onClose={onClose1}
+        message={
+          isSuccess
+            ? `Pot funded successfully! \nAmount: ${amount}`
+            : `Pot funding Failed! \n${errorMessage}`
+        }
+        screen="spaceHome"
+        scrnOptions={{ isSuccess }}
+      />
       <Button
         bg="primary.600"
         colorScheme="primary"
@@ -94,10 +137,61 @@ export default function CurrentPotView() {
         rounded="3xl"
         my={8}
         _text={{ fontWeight: 'semibold', mb: '0.5' }}
-        onPress={() => console.log('Request a Loan')}
+        onPress={() => onOpen()}
       >
         Contribute
       </Button>
+      <Actionsheet isOpen={isOpen} onClose={onClose} size="full">
+        <Actionsheet.Content>
+          <Actionsheet.Item>
+            <Text fontSize="md" mb={2}>
+              Set an amount you wish to pay
+            </Text>
+            <Text fontSize="md">Pay a max of: {(0 * 1).toFixed(4)} cUSD</Text>
+          </Actionsheet.Item>
+          <Actionsheet.Item>
+            <HStack space="xl">
+              <Text fontSize="lg" py={3} fontWeight="semibold">
+                cUSD
+              </Text>
+              <Input
+                py={2}
+                textAlign="right"
+                minW="2/3"
+                maxW="75%"
+                placeholder="0.00"
+                size="lg"
+                keyboardType="numeric"
+                isFocused={true}
+                autoFocus={true}
+                InputRightElement={
+                  <Text fontSize="md" fontWeight="medium" pr={3}>
+                    cUSD
+                  </Text>
+                }
+                value={amount}
+                onChangeText={(amount) => setAmount(amount)}
+              />
+            </HStack>
+            <Text my={3}>Account Balance: {(balance * 1.0).toFixed(2)} cUSD</Text>
+          </Actionsheet.Item>
+          <Actionsheet.Item
+            alignItems="center"
+            justifyContent="center"
+            bg="primary.600"
+            rounded="3xl"
+            width="75%"
+            height={10}
+            _text={{ color: 'white', fontWeight: 'semibold', mb: '0.5' }}
+            onPress={() => {
+              handleFundSpace();
+            }}
+          >
+            Fund Pot
+          </Actionsheet.Item>
+          <Actionsheet.Item></Actionsheet.Item>
+        </Actionsheet.Content>
+      </Actionsheet>
     </Box>
   );
 }
