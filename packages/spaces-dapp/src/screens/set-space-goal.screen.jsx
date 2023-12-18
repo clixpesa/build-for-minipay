@@ -24,6 +24,7 @@ import {
   setGoalAmount,
   setUserSpaces,
   setHasSpaces,
+  setRoscaDetails,
 } from '../store/spaces/spaces.slice';
 
 import { ScheduleActSheet, SuccessModal } from '../components';
@@ -50,27 +51,33 @@ export default function SetSpaceGoalScreen({ navigation }) {
     setAuthCode(generateId());
   }, []);
 
+  useEffect(() => {
+    dispatch(setGoalAmount(amount));
+  }, [amount]);
+
   const createRosca = async () => {
     let txData = {
       token: stableToken,
-      roscaName: 'Masomo',
-      imageLink: 'https://ipfs',
-      authCode: '1234',
-      goalAmount: ethers.utils.parseUnits('10', 18).toString(),
-      ctbAmount: ethers.utils.parseUnits('1', 18).toString(),
-      ctbDay: 'Monday',
-      ctbOccur: 'Weekly',
-      disbDay: 'Monday',
-      disbOccur: 'Weekly',
+      roscaName: spaceInfo.name,
+      imageLink: spaceInfo.imgLink,
+      authCode,
+      goalAmount: ethers.utils.parseUnits(spaceInfo.goalAmount.toString(), 18).toString(),
+      ctbAmount: ethers.utils.parseUnits(spaceInfo.ctbAmount.toString(), 18).toString(),
+      ctbDay: spaceInfo.ctbDay,
+      ctbOccur: spaceInfo.ctbOccurence,
+      disbDay: spaceInfo.disbDay,
+      disbOccur: spaceInfo.disbOccurence,
     };
     const result = await createSpace(txData);
     setTimeout(() => {
       setIsLoading(true);
     }, 2000);
     if (result) {
+      console.log(result);
       setIsSuccess(true);
       onOpen1();
       dispatch(setHasSpaces(true));
+      dispatch(setRoscaDetails(result));
       setIsLoading(false);
     }
   };
@@ -102,8 +109,8 @@ export default function SetSpaceGoalScreen({ navigation }) {
                 }
                 value={amount}
                 onChangeText={(amount) => setAmount(amount)}
-                onClose={() => dispatch(setGoalAmount(amount))}
-                onSubmitEditing={() => dispatch(setGoalAmount(amount))}
+                //onClose={() => dispatch(setGoalAmount(amount))}
+                //onSubmitEditing={() => dispatch(setGoalAmount(amount))}
               />
             </HStack>
             <Text px={5} mb={3}>

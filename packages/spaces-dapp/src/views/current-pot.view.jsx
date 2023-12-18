@@ -28,6 +28,7 @@ export default function CurrentPotView() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [balance, setBalance] = useState(0);
+
   const rosca = {
     goalAmount: 1000,
     roscaBal: 500,
@@ -50,7 +51,7 @@ export default function CurrentPotView() {
     <Box flex={1} alignItems="center">
       <Box width="85%" my={3}>
         <Text fontWeight="medium" fontSize="md">
-          Current Round: 2
+          Current Round: 1
         </Text>
         <Spacer />
         <Text fontWeight="medium" fontSize="md" color="muted.600">

@@ -5,19 +5,19 @@ const spacesInitialState = {
   selectedMembers: [],
   spaceInfo: {
     // for space creation
-    name: null,
-    type: null, //personal, rosca, regular, mchango
+    name: 'group',
+    type: 'rosca', //personal, rosca, regular, mchango
     authCode: '112233AABB',
-    imgLink: null,
+    imgLink: 'https://ipfs',
     members: [], //!TODO always include creator.
     membersCount: 0,
-    goalAmount: null,
-    ctbAmount: null,
+    goalAmount: 0,
+    ctbAmount: 0,
     ctbDay: 'Monday',
     ctbOccurence: 'Weekly',
     disbDay: 'Tuesday',
     disbOccurence: 'Weekly',
-    creator: null, //creator user address
+    creator: '0x00', //creator user address
   },
   roscaDetails: {},
   userSpaces: {
@@ -61,7 +61,9 @@ const spacesSlice = createSlice({
     setGoalAmount: (state, { payload }) => {
       const size = state.spaceInfo.members.length;
       state.spaceInfo.goalAmount = payload;
-      state.spaceInfo.ctbAmount = size ? payload / (state.spaceInfo.members.length + 1) : payload;
+      state.spaceInfo.ctbAmount = size
+        ? payload / (state.spaceInfo.members.length + 1)
+        : payload / state.spaceInfo.membersCount;
     },
     setUserSpaces: (state, { payload }) => {
       const roscas = payload.filter((s) => s.type === 'rosca');
