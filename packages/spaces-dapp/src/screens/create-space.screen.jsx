@@ -20,7 +20,15 @@ import { setSpaceInfo } from '../store/spaces/spaces.slice';
 
 export default function CreateSpaceScreen({ navigation }) {
   const thisAddress = '0x05EE013C55cB4c5f193Df715554572aDD56d143e'; //useSelector((state) => state.wallet.walletInfo.address);
-  const suggestions = ['Savings', 'Vacation', 'Chama', 'Gift', 'Sherehe', 'Emergency', 'Masomo'];
+  const suggestions = [
+    'Savings',
+    'Vacation',
+    'Chama',
+    'TMK Wanaume',
+    'Sherehe',
+    'Emergency',
+    'Masomo',
+  ];
   const dispatch = useDispatch();
   const [spaceName, setSpaceName] = useState('');
   const [membersCount, setMembersCount] = useState('');

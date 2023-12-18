@@ -1,17 +1,20 @@
 import { providers } from 'ethers';
 
-let provider = undefined
-let signer = undefined
+let provider = undefined;
+let signer = undefined;
 
 export function isProviderSet() {
   return !!provider;
 }
 
 export function setProvider() {
-  if (window.ethereum) { //&& window.ethereum.isMiniPay
+  if (window.ethereum) {
+    //&& window.ethereum.isMiniPay
     provider = new providers.Web3Provider(window.ethereum);
+    console.log('Provider initialized');
+    setSigner();
   } else {
-    console.error("Provider failed to initialize");
+    console.error('Provider failed to initialize');
   }
 }
 

@@ -36,7 +36,7 @@ export const Navigation = () => {
     prefixes: ['http://localhost:19006/', 'localhost://'],
     config,
   };
-  const hasSpaces = true; //useSelector((s) => s.spaces.userSpaces.hasSpaces);
+  const hasSpaces = useSelector((s) => s.spaces.userSpaces.hasSpaces);
   return (
     <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
       <Stack.Navigator

@@ -14,6 +14,9 @@ import {
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { blockscoutKey, stableToken } from '../config/appconfig';
+import { getBalance, createSpace } from '../interactions';
+import { ethers } from 'ethers';
 
 import {
   setCtbSchedule,
@@ -48,13 +51,28 @@ export default function SetSpaceGoalScreen({ navigation }) {
   }, []);
 
   const createRosca = async () => {
+    let txData = {
+      token: stableToken,
+      roscaName: 'Masomo',
+      imageLink: 'https://ipfs',
+      authCode: '1234',
+      goalAmount: ethers.utils.parseUnits('10', 18).toString(),
+      ctbAmount: ethers.utils.parseUnits('1', 18).toString(),
+      ctbDay: 'Monday',
+      ctbOccur: 'Weekly',
+      disbDay: 'Monday',
+      disbOccur: 'Weekly',
+    };
+    const result = await createSpace(txData);
     setTimeout(() => {
       setIsLoading(true);
     }, 2000);
-    setIsSuccess(true);
-    onOpen1();
-    dispatch(setHasSpaces(true));
-    setIsLoading(false);
+    if (result) {
+      setIsSuccess(true);
+      onOpen1();
+      dispatch(setHasSpaces(true));
+      setIsLoading(false);
+    }
   };
 
   return (
