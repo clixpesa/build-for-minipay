@@ -28,6 +28,7 @@ const spacesInitialState = {
     regular: [],
     mchango: [],
   },
+  thisSpace: {},
 };
 
 const spacesSlice = createSlice({

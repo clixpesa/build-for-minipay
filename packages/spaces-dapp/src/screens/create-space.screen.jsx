@@ -14,12 +14,14 @@ import {
   Spacer,
 } from 'native-base';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { setSpaceInfo } from '../store/spaces/spaces.slice';
+import { getSigner } from '../config/provider';
 
 export default function CreateSpaceScreen({ navigation }) {
-  const thisAddress = '0x05EE013C55cB4c5f193Df715554572aDD56d143e'; //useSelector((state) => state.wallet.walletInfo.address);
+  //useSelector((state) => state.wallet.walletInfo.address);
+  const [thisAddress, setThisAddress] = useState('');
   const suggestions = [
     'Savings',
     'Vacation',
@@ -32,6 +34,16 @@ export default function CreateSpaceScreen({ navigation }) {
   const dispatch = useDispatch();
   const [spaceName, setSpaceName] = useState('');
   const [membersCount, setMembersCount] = useState('');
+
+  useEffect(() => {
+    const getAddress = async () => {
+      const signer = getSigner();
+      const address = await signer.getAddress();
+      setThisAddress(address);
+      console.log(address);
+    };
+    getAddress();
+  }, []);
 
   return (
     <Box flex={1} bg="muted.100">

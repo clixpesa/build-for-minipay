@@ -15,30 +15,38 @@ import {
 import { useState } from 'react';
 import { SectionHeader, TransactionItem, SuccessModal } from '../components';
 import { Octicons } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
+import { shortenAddress } from '../utils';
 
 import { transactions } from '../utils/data';
+import { fundSpace } from '../interactions/rosca.interactions';
 
 export default function CurrentPotView() {
   const { isOpen, onOpen, onClose } = useDisclose();
   const { isOpen: isOpen1, onOpen: onOpen1, onClose: onClose1 } = useDisclose();
   const [txs, setTxs] = useState([]); // [
   const thisAddress = '0x'; //useSelector((s) => s.wallet.walletInfo.address);
+  const thisSpace = useSelector((s) => s.spaces.roscaDetails);
   const [amount, setAmount] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [balance, setBalance] = useState(0);
 
-  const rosca = {
-    goalAmount: 1000,
-    roscaBal: 500,
-    activeMembers: 5,
-    dueDate: '2021-10-10',
+  const currentPot = {
+    goalAmount: thisSpace.goalAmount,
+    potBal: thisSpace.roscaBal,
+    activeMembers: thisSpace.activeMembers + 1,
+    progress: (thisSpace.roscaBal / thisSpace.goalAmount) * 100,
+    dueDate: thisSpace.dueDate,
+    currMember: thisSpace.creator ? shortenAddress(thisSpace.creator, true) : 'Member',
+    mycontributions: 0,
   };
-  const prog = (rosca.roscaBal / rosca.goalAmount) * 100;
 
   const handleFundSpace = async () => {
     setIsLoading(true);
+    const res = await fundSpace(thisSpace.address, amount);
+    console.log(res);
     setTimeout(() => {
       setIsLoading(false);
       onClose();
@@ -51,28 +59,28 @@ export default function CurrentPotView() {
     <Box flex={1} alignItems="center">
       <Box width="85%" my={3}>
         <Text fontWeight="medium" fontSize="md">
-          Current Round: 1
+          Current Round: {thisSpace.currentRound}
         </Text>
         <Spacer />
         <Text fontWeight="medium" fontSize="md" color="muted.600">
-          Due for: Abedi (0x5363..786)
+          Due for: Abedi ({currentPot.currMember})
         </Text>
       </Box>
       <Box bg="white" rounded="xl" width="95%" py={3}>
         <VStack space={2}>
           <HStack mx="5" my="2">
             <Text fontWeight="semibold" fontSize="md">
-              Saved: {prog.toFixed(1)}%
+              Saved: {currentPot.progress.toFixed(1)}%
             </Text>
             <Spacer />
             <Text _light={{ color: 'muted.500' }} fontWeight="medium" pt={1} fontSize="md">
-              {rosca.roscaBal} / {rosca.goalAmount}
+              {currentPot.potBal} / {currentPot.goalAmount}
             </Text>
           </HStack>
-          <Progress colorScheme="primary" value={prog} mx="4" bg="primary.100" />
+          <Progress colorScheme="primary" value={currentPot.progress} mx="4" bg="primary.100" />
           <HStack mx="5" my="2">
             <Text fontWeight="medium" color="muted.500" fontSize="md">
-              Due: {rosca.dueDate}
+              Due: {currentPot.dueDate}
             </Text>
             <Spacer />
             <Text _light={{ color: 'muted.500' }} fontWeight="medium" fontSize="md">
@@ -85,7 +93,7 @@ export default function CurrentPotView() {
       <SectionHeader
         title="My Contributions"
         action={() => console.log('See all contributions')}
-        actionText="200/500 cUSD"
+        actionText={currentPot.mycontributions + '/' + currentPot.goalAmount + 'cUSD'}
       />
       {txs.length === 0 ? (
         <Box width="85%" alignItems="center" mt={6}>
@@ -138,7 +146,9 @@ export default function CurrentPotView() {
         rounded="3xl"
         my={8}
         _text={{ fontWeight: 'semibold', mb: '0.5' }}
-        onPress={() => onOpen()}
+        onPress={() => {
+          onOpen();
+        }}
       >
         Contribute
       </Button>
@@ -186,6 +196,7 @@ export default function CurrentPotView() {
             _text={{ color: 'white', fontWeight: 'semibold', mb: '0.5' }}
             onPress={() => {
               handleFundSpace();
+              onClose();
             }}
           >
             Fund Pot

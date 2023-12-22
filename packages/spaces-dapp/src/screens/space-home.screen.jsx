@@ -13,23 +13,21 @@ import {
 import { useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { RefreshControl } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FeatureCard, SpacesFeatureItem } from '../components';
 import { SpaceTabsNavigator } from '../navigation/spaces-tabs.nav';
 import { spaces as spaceData } from '../utils/data';
 import { shortenAddress } from '../utils';
+import { setRoscaDetails } from '../store/spaces/spaces.slice';
 
 import { getRoscaDetails } from '../interactions';
 
 export default function SpaceHomeScreen({ navigation }) {
   const thisSpace = useSelector((state) => state.spaces.roscaDetails);
+  const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const [totalBalance, setTotalBalance] = useState(0);
   const [rosca, setRosca] = useState(thisSpace);
-  const [prog, setProg] = useState(0);
-  const [dueAmount, setDueAmount] = useState(0);
-  const [loans, setLoans] = useState([]);
-  const [txs, setTxs] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclose();
   const [spaces, setSpaces] = useState(spaceData.slice(0, 2));
 
@@ -42,9 +40,8 @@ export default function SpaceHomeScreen({ navigation }) {
     const getRosca = async () => {
       const roscaDetails = await getRoscaDetails(thisSpace.address);
       setRosca(roscaDetails);
-      setProg((roscaDetails.roscaBal / roscaDetails.goalAmount) * 100);
       setTotalBalance(roscaDetails.roscaBal * 1);
-      setDueAmount((roscaDetails.goalAmount * 1) / (roscaDetails.activeMembers * 1));
+      dispatch(setRoscaDetails(roscaDetails));
     };
     getRosca();
     //refetchTxs();

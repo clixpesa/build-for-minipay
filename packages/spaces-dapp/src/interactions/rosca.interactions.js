@@ -1,6 +1,7 @@
 import { utils, ethers } from 'ethers';
 import { getSigner } from '../config/provider';
 import roscasAbi from './abis/rosca.abi.json';
+import { approveFunds } from './token.interactions';
 
 const getRoscaContract = (address) => {
   const signer = getSigner();
@@ -27,4 +28,16 @@ export const getRoscaDetails = async (address) => {
     address: result.roscaAddress,
   };
   return space;
+};
+
+export const fundSpace = async (addr, amount) => {
+  console.log(addr, amount);
+  const res = await approveFunds(addr, amount);
+  if (res.error) {
+    return res;
+  }
+  const amountInWei = utils.parseUnits(amount, 18);
+  const roscasContract = getRoscaContract(addr);
+  const result = await roscasContract.fundRound(amountInWei);
+  return result;
 };
